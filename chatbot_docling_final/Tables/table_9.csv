@@ -1,0 +1,4 @@
+Rf,Field,Description,Action
+1,Name,Determines the characters included in  Carrier Profiles names to be viewed or  edited,Enter specific characters included in Carrier  Profiles names
+2,Company,Determines the characters included in  Carrier Profiles company name to be  viewed or edited,Enter specific characters included in Carrier  Profiles company name
+3,Countries,Determines Country of company  location to filter,Select the Country of company location

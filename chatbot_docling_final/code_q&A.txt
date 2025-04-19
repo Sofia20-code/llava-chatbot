@@ -1,0 +1,234 @@
+import os
+import pandas as pd
+import matplotlib.pyplot as plt
+import streamlit as st
+import random
+from pathlib import Path
+import re
+import numpy as np
+
+# Set up the directory where your CSV files are located
+tables_directory = r"C:\Users\user\Desktop\chatbot docling_base\Chatbot docling\Chatbot docling\Tables"
+icons_directory = r"C:\Users\user\Documents\pay_projects\Chatbot docling\icons"
+md_filename = "extracted.md"
+
+# Ensure the directory exists
+Path(icons_directory).mkdir(parents=True, exist_ok=True)
+
+# Function to generate random color
+def generate_random_color():
+    return "#{:02x}{:02x}{:02x}".format(random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
+
+# Function to sanitize filenames (remove illegal characters)
+def sanitize_filename(filename):
+    return re.sub(r'[<>:"/\\|?*]', '_', filename)
+
+# Function to create artistic icons with custom text, random color, and shape
+def create_artistic_icon(file_path, text_array, text_color='white'):
+    fig, ax = plt.subplots(figsize=(5, 5))  # Increased size for better visibility (icon size)
+
+    # Generate random gradient colors for better visual appeal
+    gradient_color1 = generate_random_color()
+    gradient_color2 = generate_random_color()
+    
+    # Randomly choose a shape (circle, square, diamond, sphere)
+    shape = random.choice(['circle', 'square', 'diamond', 'sphere'])
+
+    # Create gradient background
+    gradient = np.linspace(0, 1, 256)
+    gradient = np.vstack((gradient, gradient))
+
+    # Check for shape and apply accordingly
+    if shape == 'circle':
+        ax.set_facecolor(gradient_color1)  # Set background color to gradient
+        ax.add_patch(plt.Circle((0.5, 0.5), 0.4, color=gradient_color2, lw=0))
+    elif shape == 'square':
+        ax.set_facecolor(gradient_color1)
+        ax.add_patch(plt.Rectangle((0, 0), 1, 1, color=gradient_color2, lw=0))
+    elif shape == 'diamond':
+        ax.set_facecolor(gradient_color1)
+        ax.add_patch(plt.Polygon([(0.5, 0), (1, 0.5), (0.5, 1), (0, 0.5)], color=gradient_color2, lw=0))
+    elif shape == 'sphere':
+        ax.set_facecolor(gradient_color1)
+        ax.add_patch(plt.Circle((0.5, 0.5), 0.4, color=gradient_color2, lw=0, alpha=0.6))  # Semi-transparent for sphere effect
+
+    # Place the array of text inside the icon with larger and bolder font
+    for i, text in enumerate(text_array):
+        ax.text(0.5, 0.5, text, fontsize=18, ha='center', va='center', color=text_color, fontweight='bold', fontname='Arial')
+    
+    # Turn off axis to focus on the design
+    ax.axis('off')
+    
+    # Save the icon as a PNG file with more padding and transparency
+    plt.savefig(file_path, bbox_inches='tight', pad_inches=0.3, transparent=True)
+    plt.close()
+
+# Streamlit UI
+st.title("Carrier Profile Configuration Guide")
+
+# Function to load the tables and extract their categories/columns
+def load_tables_and_columns():
+    csv_files = [f for f in os.listdir(tables_directory) if f.endswith('.csv')]
+    tables = {}
+    columns = {}
+
+    for file in csv_files:
+        table_path = os.path.join(tables_directory, file)
+        table = pd.read_csv(table_path)
+
+        # Store table data
+        tables[file] = table
+
+        # Extract column names for each table
+        columns[file] = table.columns.tolist()
+
+    return tables, columns
+
+# Load tables and columns
+tables, columns = load_tables_and_columns()
+
+# Step 1: Let the user choose a table
+selected_table = st.selectbox("Select a table", list(tables.keys()))
+
+# Step 2: Let the user choose a feature/column from the selected table
+if selected_table:
+    selected_column = st.selectbox(f"Select a feature (column) from {selected_table}", columns[selected_table])
+
+    # Get the data from the selected column
+    data = tables[selected_table][selected_column]
+
+    # Step 3: Display a bar graph based on the selected column
+    st.subheader(f"Distribution of {selected_column} in {selected_table}")
+    
+    # Plot bar graph of the selected column
+    fig, ax = plt.subplots(figsize=(8, 5))
+    data_counts = data.value_counts()  # Count the occurrences of each unique value
+    ax.bar(data_counts.index, data_counts.values, color='skyblue')
+
+    ax.set_xlabel(selected_column)
+    ax.set_ylabel('Count')
+    ax.set_title(f"Bar Graph: {selected_column} Distribution")
+    st.pyplot(fig)
+
+    # Optionally, show a summary of the column's data
+    st.write(f"Summary of {selected_column}:")
+    st.write(data.describe())
+
+# Display the icons and answer
+st.write("Choose a question and generate icons for the corresponding answers.")
+
+# Array of up to 10 questions
+questions = [
+    "Walk me through configuring the contacts tab when creating a carrier profile",
+    "How to set up the general settings for a carrier?",
+    "What information is needed to configure a carrier profile?",
+    "How do I assign a contact to a carrier profile?",
+    "What fields are required under the contact tab?",
+    "How do I update the carrier's contact details?",
+    "Where do I find the carrier profile overview?",
+    "How to save and finalize a carrier profile?",
+    "How to handle contact deletion in a carrier profile?",
+    "What happens if contact details are incomplete in a carrier profile?"
+]
+
+# Shortened text for icons (key text)
+shortened_text = {
+    "Walk me through configuring the contacts tab when creating a carrier profile": "Profile",
+    "How to set up the general settings for a carrier?": "General Settings",
+    "What information is needed to configure a carrier profile?": "Carrier Info",
+    "How do I assign a contact to a carrier profile?": "Assign Contact",
+    "What fields are required under the contact tab?": "Contact Fields",
+    "How do I update the carrier's contact details?": "Update Contact",
+    "Where do I find the carrier profile overview?": "Profile Overview",
+    "How to save and finalize a carrier profile?": "Finalize Profile",
+    "How to handle contact deletion in a carrier profile?": "Delete Contact",
+    "What happens if contact details are incomplete in a carrier profile?": "Incomplete Details"
+}
+
+# Answers and choices for each question
+answer_map = {
+    "Walk me through configuring the contacts tab when creating a carrier profile": """
+    To configure the Contacts tab of a Carrier Profile:
+    
+    1. Navigate to the Carrier Profiles page.
+    2. Click 'Edit' to access settings.
+    3. Go to the 'Contacts' tab.
+    4. Add contact details like name, email, and role (Billing, Pricing, etc.).
+    """,
+    "How to set up the general settings for a carrier?": """
+    To set up general settings for a carrier:
+    
+    1. Access the 'General Settings' section.
+    2. Fill in carrier name, contact details, and service preferences.
+    3. Save the settings.
+    """,
+    "What information is needed to configure a carrier profile?": """
+    Required information includes:
+    
+    1. Carrier name and contact info.
+    2. Service details.
+    3. Payment terms and certifications.
+    4. Insurance info.
+    """,
+    "How do I assign a contact to a carrier profile?": """
+    To assign a contact:
+    
+    1. Go to the 'Contacts' tab.
+    2. Add a contact name, email, and role (Billing, Pricing, etc.).
+    3. Save the contact info to associate it with the profile.
+    """,
+    "What fields are required under the contact tab?": """
+    Required fields:
+    
+    1. Name, email, and role.
+    2. Additional info like phone number if necessary.
+    """,
+    "How do I update the carrier's contact details?": """
+    To update contact details:
+    
+    1. Access the 'Contacts' tab.
+    2. Select the contact to edit.
+    3. Modify the details and save the changes.
+    """,
+    "Where do I find the carrier profile overview?": """
+    The profile overview can be accessed from the main dashboard.
+    It includes general carrier information and statistics.
+    """,
+    "How to save and finalize a carrier profile?": """
+    To finalize:
+    
+    1. Complete all necessary fields.
+    2. Review the details for accuracy.
+    3. Click 'Save' to complete the profile.
+    """,
+    "How to handle contact deletion in a carrier profile?": """
+    To delete a contact:
+    
+    1. Go to the 'Contacts' tab.
+    2. Select the contact and click 'Delete'.
+    3. Confirm the deletion.
+    """,
+    "What happens if contact details are incomplete in a carrier profile?": """
+    Incomplete details can cause issues in communication.
+    Ensure all fields are filled in to avoid delays.
+    """
+}
+
+# Let the user choose a question
+selected_question = st.selectbox("Choose a question to answer:", questions)
+
+# Display the answer for the selected question
+if selected_question:
+    st.write(f"**Answer**: {answer_map[selected_question]}")
+
+    # Generate and display the icon for the selected question (shortened key text)
+    icon_text = shortened_text[selected_question]
+    icon_file_path = os.path.join(icons_directory, sanitize_filename(f"{selected_question}.png"))
+    create_artistic_icon(icon_file_path, [icon_text], text_color="white")
+    
+ # Show icon and answer side by side
+col1, col2 = st.columns([2, 3])  # Increased icon column width for better visibility
+with col1:
+    st.image(icon_file_path, use_container_width=True)  # Use use_container_width instead of use_column_width
+with col2:
+    st.write(answer_map[selected_question])

@@ -1,0 +1,5 @@
+Rf,Field,Description,Action
+1,Attachment (mandatory),Uploaded Attachment Name,Upload attachment by clicking on  the
+2,Category (mandatory),"Determines attachment category:  •  Agreement: Agreement with Carrier •  Attachment: any other attachment as  Technical Interconnect, company  registration doc or other documents",Select category of the  attachment
+3,Description,Determines Pricing Contact Name,Enter Pricing Contact Name
+4,Upload On,Display date when the document was uploaded,Display date when the document was uploaded

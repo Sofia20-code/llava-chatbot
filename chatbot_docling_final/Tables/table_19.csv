@@ -1,0 +1,10 @@
+Rf,Field,Description,Action
+1,Time Zone,Determines Supplier Pricelist Time Zone to consider in  the Supplier import process (Default setting is GMT  System Time zone),Select Supplier Pricelist Time  Zone
+2,Zone Services,Determines Supplier Zone Service.  System Parent Service will be by default selected (refer  to Administration>Lookups>Services),Select Service from all  available
+3,Routing Status,Determines the Supplier Routing status: •  Enable (default): outgoing calls are allowed •  Disable: outgoing calls are blocked,Select between Enable or  Disable
+4,Effective Date  Day Offset,"Minimum acceptable notice period while Supplier  Pricelist is imported and a rate increase or delete is  detected. Example: if value equal 7, Effective Date less than 7  days into the future will trigger a warning. The rate  could be rejected, or accepted by user importing  supplier pricelist after analyzing the displayed warning. Refer to Administration>System Settings>Component  Settings>Purchase Area",Specify Effective Date Offset
+5,Rule Set,Assigned Business Rule to Supplier Pricelist. Refer to Business Rules where Business rules are  already defined,Select Business rule
+6,Active,This option allows system to automatically import  Supplier Pricelists from emails without any manual user  intervention,to Enable  to Disable
+7,Email,Sender Email address from which pricelist is received,Specify Sender match email
+8,Subject Code,Match expression that must be contained in the  pricelist email subject.,Define an expression for  searching for specific mail  keyword(s) subject
+9,Attachment Code,Match expression that must be contained in the  attached pricelist name,Define attachment match  expression

@@ -1,0 +1,16 @@
+Rf,Field,Description,Action
+1,Channel Name,Determines the Channel Name,Enter the required Channel Name
+2,Bank (mandatory),Determines the Bank Name,Enter Bank Name
+3,Account Code,Determines the Bank Account Code,Enter the required Account Code
+4,Account Holder,Determines the Account Holder,Enter Account Holder
+5,IBAN,Determines the International Bank  Account Number,Enter the required IBAN
+6,Address,Determines the Bank Address,Enter Bank Address
+7,Account Number,Determines the Bank Account Number,Enter the required Account Number
+8,Swift Code,Determines the Swift Code,Enter Swift Code
+9,Sort Code,Determines the Sort Code,Enter Sort Code
+10,Correspondent Bank,Determines the Correspondent Bank,Enter Correspondent Bank
+11,Corresponding Bank  Swift Code,Determines the Bank Swift Code,Enter Bank Swift Code
+12,Currency (mandatory),Determines the Account Currency Refer to  Administration>Lookups>Currencies,Select the corresponding Currency.  The user can instantly add a new  Currency by clicking on the  button.
+13,ACH,Determines the ACH,Enter ACH
+14,ABA Routing Number,Determines the ABA Routing Number,Enter ABA Routing Number
+15,More Info,Determines additional details,Enter More Info

@@ -1,0 +1,187 @@
+import streamlit as st
+import pandas as pd
+from sentence_transformers import SentenceTransformer, util
+import csv
+import os
+import random
+import matplotlib.pyplot as plt
+import numpy as np
+from matplotlib.patches import Circle, Rectangle, Ellipse, Polygon
+from fpdf import FPDF
+from pathlib import Path
+
+# ----------------------- CONFIG -----------------------
+st.set_page_config(page_title="Vanrise Solutions FAQ Assistant", layout="centered")
+
+# Theme toggle
+mode = st.selectbox("Choose Theme:", ["Light Mode", "Dark Mode"])
+if mode == "Dark Mode":
+    st.markdown("""
+        <style>
+        .stApp {
+            background-color: #222;
+            color: white;
+        }
+        </style>
+    """, unsafe_allow_html=True)
+
+# ----------------------- Load Sentence Transformer Model -----------------------
+model = SentenceTransformer('all-MiniLM-L6-v2')
+
+# ----------------------- Sidebar Navigation -----------------------
+nav_option = st.sidebar.radio("Navigate to:", ["Introduction", "FAQ Chatbot", "Submit a Question"])
+
+# ----------------------- Load FAQ Data from CSV -----------------------
+faq_data_file = "data.csv"
+
+def load_faq_data():
+    if os.path.exists(faq_data_file):
+        try:
+            faq_data = pd.read_csv(faq_data_file, delimiter='|', on_bad_lines='skip')
+            faq_data.columns = faq_data.columns.str.strip()
+            if 'Question' not in faq_data.columns or 'Answer' not in faq_data.columns or 'Keyword' not in faq_data.columns:
+                st.error("The FAQ data is missing necessary columns ('Question', 'Answer', 'Keyword').")
+                return None
+            elif faq_data.empty:
+                st.error("The FAQ data file is empty.")
+                return None
+            faq_data['Question'] = faq_data['Question'].fillna('').astype(str)
+            return faq_data
+        except pd.errors.ParserError:
+            st.error("CSV parsing issue. Ensure it's formatted correctly with '|' as delimiter.")
+        except Exception as e:
+            st.error(f"Error loading CSV: {e}")
+    else:
+        st.error("FAQ data file not found!")
+    return None
+
+# ----------------------- Icon Generation Function -----------------------
+icons_directory = r"C:\Users\user\Desktop\chatbot docling_base\Chatbot docling\Chatbot docling\icons"
+Path(icons_directory).mkdir(parents=True, exist_ok=True)
+
+def generate_random_color():
+    return "#{:02x}{:02x}{:02x}".format(random.randint(30, 255), random.randint(30, 255), random.randint(30, 255))
+
+def create_icon_with_keyword(file_path, keyword):
+    fig, ax = plt.subplots(figsize=(5, 5))
+    bg_color = generate_random_color()
+    text_color = "white"
+    
+    shapes = ['circle', 'square', 'rectangle', 'ellipse', 'triangle', 'star', 'hexagon', 'rhombus', 'pentagon', 'cross']
+    shape = random.choice(shapes)
+
+    ax.set_facecolor(bg_color)
+
+    if shape == 'circle':
+        ax.add_patch(Circle((0.5, 0.5), 0.4, color=generate_random_color()))
+    elif shape == 'square':
+        ax.add_patch(Rectangle((0.1, 0.1), 0.8, 0.8, color=generate_random_color()))
+    elif shape == 'rectangle':
+        ax.add_patch(Rectangle((0.05, 0.3), 0.9, 0.4, color=generate_random_color()))
+    elif shape == 'ellipse':
+        ax.add_patch(Ellipse((0.5, 0.5), 0.8, 0.5, color=generate_random_color()))
+    elif shape == 'triangle':
+        ax.add_patch(Polygon([[0.5, 0.9], [0.1, 0.1], [0.9, 0.1]], color=generate_random_color()))
+    elif shape == 'star':
+        star_points = [(0.5, 0.9), (0.6, 0.6), (0.9, 0.6), (0.65, 0.4), (0.75, 0.1),
+                       (0.5, 0.3), (0.25, 0.1), (0.35, 0.4), (0.1, 0.6), (0.4, 0.6)]
+        ax.add_patch(Polygon(star_points, color=generate_random_color()))
+    elif shape == 'hexagon':
+        hexagon = [(0.5 + 0.4 * np.cos(theta), 0.5 + 0.4 * np.sin(theta)) for theta in np.linspace(0, 2 * np.pi, 7)]
+        ax.add_patch(Polygon(hexagon, color=generate_random_color()))
+    elif shape == 'rhombus':
+        ax.add_patch(Polygon([[0.5, 0.9], [0.9, 0.5], [0.5, 0.1], [0.1, 0.5]], color=generate_random_color()))
+    elif shape == 'pentagon':
+        pentagon = [(0.5 + 0.4 * np.cos(theta), 0.5 + 0.4 * np.sin(theta)) for theta in np.linspace(0, 2 * np.pi, 6)]
+        ax.add_patch(Polygon(pentagon, color=generate_random_color()))
+    elif shape == 'cross':
+        ax.add_patch(Rectangle((0.4, 0.1), 0.2, 0.8, color=generate_random_color()))
+        ax.add_patch(Rectangle((0.1, 0.4), 0.8, 0.2, color=generate_random_color()))
+
+    ax.text(0.5, 0.5, keyword, fontsize=18, ha='center', va='center', color=text_color, fontweight='bold')
+    ax.axis('off')
+    plt.savefig(file_path, bbox_inches='tight', pad_inches=0.3, transparent=True)
+    plt.close()
+
+# ----------------------- Graph Generation Function -----------------------
+def create_keyword_frequency_graph(faq_data):
+    keyword_counts = faq_data['Keyword'].value_counts()
+    plt.figure(figsize=(10, 6))
+    keyword_counts.plot(kind='bar', color='skyblue', edgecolor='black')
+    plt.title('Keyword Frequency in FAQ Data')
+    plt.xlabel('Keywords')
+    plt.ylabel('Frequency')
+    graph_file_path = 'keyword_frequency_graph.png'
+    plt.savefig(graph_file_path)
+    plt.close()
+    return graph_file_path
+
+# ----------------------- PDF Generation Function -----------------------
+def generate_pdf(icon_filename, question, answer, graph_file):
+    pdf = FPDF()
+    pdf.add_page()
+    pdf.set_font("Arial", size=12)
+
+    # Add icon image
+    pdf.image(icon_filename, x=10, y=10, w=50)
+
+    # Add question and answer
+    pdf.ln(60)  # Move below the icon
+    pdf.multi_cell(0, 10, f"Q: {question}")
+    pdf.multi_cell(0, 10, f"A: {answer}")
+
+    # Add graph
+    pdf.ln(10)
+    pdf.image(graph_file, x=10, y=pdf.get_y(), w=180)
+
+    # Output to a file
+    output_path = "output.pdf"
+    pdf.output(output_path)
+
+    return output_path
+
+# ----------------------- Introduction Page -----------------------
+if nav_option == "Introduction":
+    st.markdown("""
+        ### 📘 Vanrise Solutions - FAQ Assistant
+        Welcome to Vanrise Solutions! Our premier product, **T.One Wholesale BSS**, is designed to help telecommunications providers with streamlined billing and operational support.
+    """)
+
+# ----------------------- Chatbot Page -----------------------
+elif nav_option == "FAQ Chatbot":
+    st.title("🤖 Vanrise FAQ Chatbot")
+    user_input = st.text_input("Ask a question:")
+
+    if user_input:
+        query_embedding = model.encode(user_input, convert_to_tensor=True)
+        faq_data = load_faq_data()
+        if faq_data is not None:
+            faq_embeddings = [model.encode(q, convert_to_tensor=True) for q in faq_data['Question']]
+            similarities = [util.pytorch_cos_sim(query_embedding, emb).item() for emb in faq_embeddings]
+            best_match_idx = similarities.index(max(similarities))
+            best_faq = faq_data.iloc[best_match_idx]
+
+            icon_keyword = best_faq['Keyword']
+            icon_filename = os.path.join(icons_directory, f"{icon_keyword}.png")
+            create_icon_with_keyword(icon_filename, icon_keyword)
+
+            st.markdown(f"**Q:** {best_faq['Question']}")
+            st.write(f"**A:** {best_faq['Answer'] if best_faq['Answer'] else 'No answer available.'}")
+            st.write(f"**Keyword(s):** {best_faq['Keyword']}")
+            st.image(icon_filename, width=150, caption=f"Icon for '{icon_keyword}'")
+
+            if st.button("Analyze Keyword Frequency"):
+                graph_file = create_keyword_frequency_graph(faq_data)
+                st.image(graph_file, caption='Keyword Frequency Graph')
+
+                if st.button("Download PDF"):
+                    pdf_output = generate_pdf(icon_filename, best_faq['Question'], best_faq['Answer'], graph_file)
+                    with open(pdf_output, "rb") as f:
+                        st.download_button(label="📄 Download PDF", data=f, file_name="FAQ_Analysis.pdf")
+
+# ----------------------- Submit a Question Page -----------------------
+elif nav_option == "Submit a Question":
+    st.title("💬 Submit a Question")
+    user_question = st.text_input("Submit your question here:")
+    if user_question:
+        st.success("Thank you! Your question has been submitted for review.")

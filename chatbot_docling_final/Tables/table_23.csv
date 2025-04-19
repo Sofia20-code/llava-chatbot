@@ -1,0 +1,12 @@
+Rf,Column Name,Description
+1,Account,Determines the Carrier Account name
+2,Profile,Name of the Carrier Profile to which the Carrier Account belongs
+3,Account Type,Determines the type of Carrier: •  Customer: ingress only connection who will be sending traffic (to be rated and  routed). •  Supplier: egress only connection to which traffic will be routed (traffic will be  routed to and charged based on supplier pricelist) •  Exchange: connection to which calls are sent and from which calls are received
+4,Activation Status,Determines the Carrier Account Activation status: •  Active (default): Active Accounts •  Inactive: Disabled Accounts •  Testing: Testing Accounts (Reported in CDRs but not Billed)
+5,Selling Number Plan,Determines Customer Selling Number Plan (Refer to Numbering Plan section)
+6,Selling Product,Determines Customer Selling Product (Refer to Selling Product section)
+7,Services,Determines Supplier Zone Service from all available (already created under  Administration>Lookups>Services)
+8,Invoice Type,"Determines the Invoice Type: •  Profile: Consolidated billing where a unique invoice will be generated including  charges of all Carrier Accounts associated to this Carrier Profile) •  Account: Standard billing where for each Carrier Account with valid Financial  Account, an individual invoice will be generated"
+9,Invoice Setting,Determines assigned Customer Invoice setting configured under related Financial  account
+10,Company Setting,Company branch name presented to Carrier
+11,Interconnect switch,Determines if Carrier account is an Interconnect Switch: : Carrier Account traffic will be considered as transit traffic. Related CDRs leg are  not priced and not billed.

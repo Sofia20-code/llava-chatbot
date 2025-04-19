@@ -1,0 +1,5 @@
+Rf,Field,Description,Action
+1,Sell Country,Determines the minimum acceptable Notice  Period for new Customer Country offer,Enter Notice Period for  any new Country offer
+2,End Country,Determines minimum acceptable Notice  Period to close Customer Country offer,Enter Notice Period to  close Country
+3,Increased Rate,Determines minimum acceptable Notice  Period to Increase a Customer rate offer,Enter Notice Period for  Increased Rate
+4,Decreased Rate,Determines minimum acceptable Notice  Period to Decrease a Customer rate offer,Enter Notice Period for  Decreased Rate

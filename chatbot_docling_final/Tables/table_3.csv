@@ -1,0 +1,15 @@
+Rf,Field,Description,Action
+1,Billing Contact,Determines Billing Contact Name,Enter Billing Contact Name
+2,Billing Email,Determines Billing Email,Add Billing Email
+3,Pricing Contact,Determines Pricing Contact Name,Enter Pricing Contact Name
+4,Pricing Email,Determines Pricing Email,Add Pricing Email
+5,Account Manager Contact,Determines Account Manager Contact  Name,Enter Account Manager Contact  Name
+6,Account Manager Email,Determines Account Manager Email,Add Account Manager Email
+7,Support Contact,Determines Support Contact Name,Enter Support Contact Name
+8,Support Email,Determines Support Email,Add Support Email
+9,Technical Contact,Determines Technical Contact Name,Enter Technical Contact Name
+10,Technical Email,Determines Technical Email,Add Technical Email
+11,Commercial Contact,Determines Commercial Contact Name,Enter Commercial Contact  Name
+12,Commercial Email,Determines Commercial Email,Add Commercial Email
+13,Alerting SMS Phone  Numbers,Determines SMS Phone Numbers,Enter SMS Phone Numbers
+14,Dispute Email,Determines Dispute Email,Add Dispute Email

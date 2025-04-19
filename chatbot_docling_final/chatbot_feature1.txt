@@ -1,0 +1,125 @@
+import streamlit as st
+import pandas as pd
+from sentence_transformers import SentenceTransformer, util
+import csv
+import os
+
+# ----------------------- CONFIG -----------------------
+st.set_page_config(page_title="Vanrise Solutions FAQ Assistant", layout="centered")
+
+# Theme toggle
+mode = st.selectbox("Choose Theme:", ["Light Mode", "Dark Mode"])
+if mode == "Dark Mode":
+    st.markdown("""
+        <style>
+        .stApp {
+            background-color: #222;
+            color: white;
+        }
+        </style>
+    """, unsafe_allow_html=True)
+
+# ----------------------- Load Sentence Transformer Model -----------------------
+model = SentenceTransformer('all-MiniLM-L6-v2')
+
+# ----------------------- Sidebar Navigation -----------------------
+nav_option = st.sidebar.radio("Navigate to:", ["Introduction", "FAQ Chatbot", "Submit a Question"])
+
+# ----------------------- Load FAQ Data from CSV -----------------------
+faq_data_file = "data.csv"  # Assuming the CSV is named 'data.csv'
+
+def load_faq_data():
+    if os.path.exists(faq_data_file):
+        try:
+            # Load the FAQ data from the CSV file using pandas with pipe delimiter
+            faq_data = pd.read_csv(faq_data_file, delimiter='|', on_bad_lines='skip')
+
+            # Clean column names (strip any extra spaces)
+            faq_data.columns = faq_data.columns.str.strip()
+
+            # Check if required columns exist
+            if 'Question' not in faq_data.columns or 'Answer' not in faq_data.columns or 'Keyword' not in faq_data.columns:
+                st.error("The FAQ data is missing necessary columns ('Question', 'Answer', 'Keyword'). Please check the file format.")
+                return None
+            elif faq_data.empty:
+                st.error("The FAQ data file is empty. Please check the file content.")
+                return None
+
+            # Clean up any NaN or invalid data in the 'Question' column
+            faq_data['Question'] = faq_data['Question'].fillna('')  # Replace NaNs with empty strings
+            faq_data['Question'] = faq_data['Question'].astype(str)  # Ensure all values are strings
+            
+            st.success("FAQ data loaded successfully.")
+            return faq_data
+        
+        except pd.errors.ParserError:
+            st.error("There was an issue parsing the CSV file. Please ensure the file is correctly formatted with '|' as the delimiter.")
+        except Exception as e:
+            st.error(f"An error occurred while loading the CSV file: {e}")
+    else:
+        st.error("FAQ data file not found!")
+    
+    return None
+
+# ----------------------- Introduction Page -----------------------
+if nav_option == "Introduction":
+    st.markdown("""
+        ### 📘 Vanrise Solutions - FAQ Assistant
+        Welcome to Vanrise Solutions! Our premier product, **T.One Wholesale BSS**, is designed to help telecommunications providers with streamlined billing and operational support.
+    """)
+
+    st.markdown("""
+        ### 💼 About Vanrise Solutions
+        Welcome to **Vanrise Solutions**—a premier provider of wholesale billing and operational support systems for the telecommunications industry.
+
+        Our flagship product, **T.One Wholesale BSS**, streamlines billing, invoicing, call data processing, and reporting for carriers and VoIP providers. Our software is tailored, secure, and driven by real-time data analytics. We partner with clients globally to ensure optimal efficiency and profitability.
+    """)
+
+# ----------------------- Chatbot Page -----------------------
+elif nav_option == "FAQ Chatbot":
+    st.title("🤖 Vanrise FAQ Chatbot")
+    user_input = st.text_input("Ask a question:")
+
+    if user_input:
+        # Encode user input and FAQ questions
+        query_embedding = model.encode(user_input, convert_to_tensor=True)
+
+        # Ensure there is data in 'faq_data'
+        faq_data = load_faq_data()
+        if faq_data is not None:
+            # Encode FAQ questions
+            faq_embeddings = [model.encode(question, convert_to_tensor=True) for question in faq_data['Question']]
+
+            # Calculate similarity with all FAQ questions
+            similarities = [util.pytorch_cos_sim(query_embedding, faq_embedding).item() for faq_embedding in faq_embeddings]
+
+            # Get the best matching FAQ
+            best_match_idx = similarities.index(max(similarities))
+            best_faq = faq_data.iloc[best_match_idx]
+
+            st.markdown(f"**Q:** {best_faq['Question']}")
+            st.write(f"**A:** {best_faq['Answer'] if best_faq['Answer'] else 'No answer available for this question.'}")
+            st.write(f"**Keyword(s):** {best_faq['Keyword']}")
+        else:
+            st.error("The FAQ data is missing necessary columns ('Question', 'Answer', 'Keyword'). Please check the file.")
+
+# ----------------------- Submission Page -----------------------
+elif nav_option == "Submit a Question":
+    st.title("📝 Submit Your Own Question")
+    name = st.text_input("Your Name")
+    question = st.text_area("Your Question")
+    keyword = st.text_input("Suggested Keywords (comma-separated)")
+    submitted = st.button("Submit")
+    
+    # Handle the question submission
+    if submitted:
+        if name and question and keyword:
+            file_exists = os.path.isfile(faq_data_file)
+            with open(faq_data_file, "a", newline='', encoding='utf-8') as f:
+                writer = csv.writer(f, delimiter='|')  # Use '|' delimiter for saving
+                if not file_exists:
+                    writer.writerow(["Question", "Answer", "Keyword"])  # Add headers if file doesn't exist
+                writer.writerow([question, "", keyword])  # Assuming no answer is provided yet
+            st.success("Thanks for your submission! We'll get back to you shortly.")
+        else:
+            st.error("Please fill out all fields (Name, Question, and Keywords).")

@@ -1,0 +1,8 @@
+Rf,Field,Description,Action
+1,Account,Determines the Carrier Account name: Carrier  Profile name+ (Suffix name),Enter specific characters  included in Carrier Account  names
+2,Carrier Profile,Determines name of the Carrier Profile to which  the Carrier Account belongs,Select one or multiple Carrier  Profile name(s) from all available
+3,Carrier Type,Determines the Carrier type: •  Customer: ingress only connection who will be  sending traffic (to be rated and routed). •  Supplier: egress only connection to which  traffic will be routed (traffic will be routed to  and charged based on supplier pricelist) •  Exchange: connection to which calls are sent  and from which calls are received,Select one or multiple Carrier  type(s)
+4,Activation Status,Determines the Carrier Account Activation status: •  Active (default): Active Accounts •  Inactive: Disabled Accounts •  Testing: Testing Accounts (Reported in CDRs  but not Billed),Select Carrier Account with one  or multiple activation status.
+5,Invoice Type,"Determines the Invoice Type: •  Profile: Consolidated billing where a unique  invoice will be generated including charges of  all Carrier Accounts associated to this Carrier  Profile. •  Account: Standard billing where for each  Carrier Account with valid Financial Account,  an individual invoice will be generated.",Select one or multiple Invoice  type(s)
+6,Company Settings,Company branch name as presented to Carrier,Select Company Settings
+7,Interconnect Only,"If enabled, Carrier Account(s) with Interconnect  traffic type will be filtered",to Enable  to Disable (default)

@@ -1,0 +1,62 @@
+Question|Answer|Keyword
+What is the main purpose of the T.One Wholesale BSS?|1. The T.One Wholesale BSS is designed to streamline and facilitate the billing, invoicing, and operational processes for telecommunications carriers. |2. Its primary goal is to manage complex relationships, ensure accurate billing, and provide data-driven insights for business decision-making.|T.OneWholesale
+How does Vanrise Solutions differentiate itself from competitors in the BSS market?|1. Innovative technology and robust telecom-tailored features. |2. Customizable solutions for clients. |3. Exceptional customer support. |4. Focus on real-time data processing and intuitive user interfaces.|VanriseSolutions|BSSMarket
+What industries do you primarily serve with your Wholesale BSS?|1. Telecommunications. |2. VoIP. |3. Mobile services. |4. Other communication technologies.|Telecom|VoIP|MobileServices
+Can you describe the key features of the T.One Wholesale BSS?|1. Comprehensive Carrier Profile management. |2. Automated billing and invoicing. |3. Call data processing, rating, and routing. |4. Financial tools for accounts receivable. |5. Detailed reporting and analytics.|CarrierProfile|Billing|Invoicing|Reporting
+How does Vanrise Solutions ensure the security of its software solutions?|1. Industry-standard security protocols. |2. Encryption. |3. Secure user authentication. |4. Regular security audits. |5. Compliance with relevant regulations.|Security|Encryption|UserAuthentication
+What kind of customer support does Vanrise Solutions provide to its clients?|1. Multi-channel support (email, phone, helpdesk). |2. Extensive documentation. |3. Training sessions. |4. Onboarding assistance.|CustomerSupport|Training|Onboarding
+How customizable is the T.One Wholesale BSS to meet specific client needs?|1. Highly customizable features, workflows, and reports. |2. Reflects unique business processes and carrier agreements.|Customization|ClientNeeds|CarrierAgreements
+What is the typical onboarding process for new customers?|1. Initial consultation. |2. System configuration and customization. |3. Data migration. |4. User training and documentation. |5. Ongoing post-launch support.|Onboarding|Consultation|Training|DataMigration
+How does Vanrise Solutions handle software updates and maintenance?|1. Periodic updates with minimal disruption. |2. Advance client notifications. |3. New features, security patches, optimizations. |4. Dedicated maintenance team.|SoftwareUpdates|Maintenance|SystemOptimization
+What feedback mechanisms are in place for customers to suggest improvements?|1. Surveys. |2. User forums. |3. Direct communication with account managers. |4. Regular check-ins.|Feedback|Surveys|UserForums
+What information is required to register a company profile?|1. Company Registration Number. |2. Company Address. |3. Website. |4. Town. |5. Postal Code. |6. Company Branch Name. |7. Bank Details. |8. Invoice Subject. |9. Phone and Fax Numbers.|CompanyProfileRegistration
+How does one update the bank details in the system?|1. Navigate to Administration. |2. Select Component Settings. |3. Choose Bank Details. |4. Update or select from the drop-down list.|BankDetailsUpdate
+Can multiple phone numbers be added for a company, and if so, how?|1. Enter the primary phone number. |2. Press the 'Add' button. |3. Repeat the process for additional numbers.|AddPhoneNumbers
+What steps should be taken to upload a company logo in the system?|1. Click the upload logo button. |2. Select a file from your device. |3. Remove with the designated remove sign if needed.|UploadCompanyLogo
+Describe the process for adding a new email address to the contacts in the carrier profile.|1. Click the downward arrow beside the email field. |2. Enter the new email address. |3. Press the add button. |4. Separate each email with a semicolon if adding multiple.|AddEmailAddress
+Is it possible to delete an email address once it has been added? How?|1. Open the email dropdown list. |2. Find the target email. |3. Click the delete icon next to it.|DeleteEmailAddress
+What determines the customer sale time zone in the customer settings?|1. The Time Zone field selection. |2. Defaults to GMT or system time zone.|CustomerSaleTimeZone
+How can one enable or disable the invoice time zone option?|1. Locate the Invoice Time Zone field. |2. Select Enable or Disable based on requirement.|InvoiceTimeZoneOption
+What is the purpose of the Selling Numbering Plan in customer settings?|1. Determines the numbering plan for sales. |2. Selection is made from pre-defined plans.|SellingNumberingPlan
+What steps should be taken to add a new zone under a specific country in the numbering plan?|1. Click on the desired country. |2. Click 'Add New Zone'. |3. Enter and save the required details.|AddNewZone
+Describe how to create a new code for a zone in the numbering plan.|1. Navigate to the zone on the Numbering Plan page. |2. Click add code. |3. Enter unique code digits. |4. Press save.|CreateNewCode
+What will happen if a user decides to end an existing zone name?|1. Click the zone to delete. |2. Confirm deletion. |3. System may prompt for reason or notes.|DeleteZone
+How can changes made in draft status be either canceled or applied to the system?|1. Click cancel to discard. |2. Click confirm to apply. |3. Set an effective date.|CancelOrApplyChanges
+Describe the action needed to move a code from one zone to another.|1. Select the source zone. |2. Choose the code to move. |3. Select destination zone and confirm.|MoveCodeBetweenZones
+How are codes displayed after being moved from one zone?|1. Old zone shows "Moved to another zone". |2. New zone shows "Moved from another zone".|MovedCodesDisplay
+What is the procedure for verifying and saving changes made in the numbering plan?|1. Review updates in draft. |2. Confirm accuracy. |3. Press save to finalize.|VerifyAndSaveChanges
+Can the effective date of the changes in the numbering plan be set to a future date?|1. Default is today plus offset. |2. Manually adjust to future date if needed.|EffectiveDateChanges
+Are there any restrictions on the zone names that can be added to the system?|1. Names must be unique. |2. Must follow character/format requirements.|ZoneNameRestrictions
+What user interface elements assist in managing zones and codes in the numbering plan?|1. Dropdown menus. |2. Action buttons (add, move, delete). |3. Visual indicators and alerts.|UserInterfaceElements
+How does the system handle changes to the numbering plan once they are confirmed?|1. Saved to system database. |2. User guided to review affected price lists. |3. Notifications sent to relevant customers.|HandleChangesToNumberingPlan
+"How is a carrier account deleted in T.One Wholesale BSS?","Navigate to Carrier Accounts, Select account, Click Delete, Confirm","Carrier Account Deletion"
+"How do you create a new carrier profile in the system?","Navigate to Carrier Profiles, Click Add New Profile, Enter Details, Save","Carrier Profile Creation"
+"How do you modify a carrier profile's contact information?","Navigate to Carrier Profile, Edit Contact Info, Save","Carrier Profile Modification"
+"How do you manage interconnect pricing for a carrier account?","Navigate to Carrier Account, Select Interconnect Pricing tab, Set Prices, Save","Interconnect Pricing Management"
+"How do you add a new service to the T.One Wholesale BSS?","Navigate to Administration > Lookups > Services, Click Add New Service, Define Service Details, Save","Service Addition"
+"How can you view the account status for a carrier?","Open Carrier Account, View 'Account Status' field","Account Status View"
+"How do you configure payment terms for a carrier account?","Select Carrier Account, Go to Payment Terms section, Update Terms, Save","Payment Terms Configuration"
+"How do you assign a billing cycle to a carrier account?","Select Carrier Account, Go to Billing Cycle tab, Select Cycle, Save","Billing Cycle Assignment"
+"How do you change the contact person for a carrier account?","Open Carrier Account, Navigate to Contacts, Update Contact Person, Save","Contact Person Change"
+"How do you set up a new product for a carrier in the system?","Go to Product Management, Click Add New Product, Define Product Details, Save","New Product Setup"
+"How do you configure automated invoice creation in the BSS?","Navigate to Invoice Settings, Enable Auto Generation, Set Minimum Amount, Save","Invoice Automation"
+"How do you export carrier profile data from the system?","Apply filters to Carrier Profiles, Click Export, Save in desired format","Carrier Profile Export"
+"How do you set the currency for a carrier account?","Open Carrier Account, Go to Currency Settings, Select Currency, Save","Currency Setup"
+"How can a user track the status of a billing event?","Go to Billing Events, Check Status column","Billing Event Tracking"
+"How do you create a payment plan for a carrier account?","Navigate to Payment Plans, Create New Plan, Define Payment Structure, Save","Payment Plan Creation"
+"How do you apply a discount to a carrier account?","Open Carrier Account, Go to Discounts, Apply Discount Code, Save","Discount Application"
+"How do you configure the numbering plan for a new zone?","Go to Numbering Plan section, Add New Zone, Define Numbering Rules, Save","Numbering Plan Configuration"
+"How do you monitor the status of a carrier account’s invoices?","Go to Carrier Account, Open Invoices section, Track Status in 'Invoice Status' column","Invoice Status Monitoring"
+"How do you review usage trends in a carrier account?","Open Carrier Account, Go to Usage tab, View trends and graphs","Usage Trend Review"
+"How can you schedule recurring billing for a carrier account?","Navigate to Carrier Account, Go to Recurring Billing section, Set Recurrence Frequency, Save","Recurring Billing Setup"
+"How do you create a new carrier type in the system?","Go to Carrier Account, Click Add New Carrier Type, Define Type, Save","Carrier Type Creation"
+"How do you change the address for a carrier account?","Open Carrier Account, Go to Address section, Update Address, Save","Address Change"
+"How do you track usage for a carrier account?","Navigate to Carrier Account, Open Usage tab, View data and trends","Usage Tracking"
+"How do you apply a tax to a carrier account?","Open Carrier Account, Go to Tax Settings section, Apply Tax Rate, Save","Tax Application"
+"How do you manage service provisioning for a carrier account?","Navigate to Services section, Add or Remove Services, Save","Service Provisioning"
+"How do you configure custom fields for a carrier account?","Open Carrier Account, Click Custom Fields, Add New Field, Save","Custom Field Setup"
+"How do you manage carrier account permissions?","Navigate to Carrier Account settings, Click Permissions, Update User Access, Save","Permissions Management"
+"How do you integrate a new carrier with the T.One Wholesale BSS system?","Go to Carrier Account, Click Integrate New Carrier, Enter Details, Save","Carrier Integration"
+"How do you delete a carrier profile in T.One Wholesale BSS?","Navigate to Carrier Profiles, Select Profile, Click Delete, Confirm","Carrier Profile Deletion"
+"How do you handle billing disputes with a carrier?","Navigate to Billing Dispute section, Review Dispute, Resolve or Escalate, Save","Billing Dispute Handling"
+"How do you audit carrier account activities in T.One Wholesale BSS?","Navigate to Carrier Account, Open Activity Log, Review Entries","Account Activity Audit"

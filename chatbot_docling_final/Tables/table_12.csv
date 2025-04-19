@@ -1,0 +1,9 @@
+Rf,Field,Description,Action
+1,Suffix,Determines the Post - nominal letters that follows  Carrier Profile name to constitute the Carrier  account name,Enter Suffix name of Carrier  Account
+2,Carrier Profile,Determines Carrier Profile under which the Carrier Account is being added,Determines Carrier Profile under which the Carrier Account is being added
+3,Alias Name,Determines Carrier Account Alias name which will  be used on pages where the user has permission  to only see the alias name of corresponding  carrier account,Enter Carrier Account Alias name
+4,Activation Status,Determines the Activation Status of Carrier  Account:  •  Active (Default): Active Account •  Inactive: Account Disabled •  Testing: shown in Traffic Analysis but not  billed,Select the required Carrier  Account Activation Status
+5,Account Type  (mandatory),Determines the type of Carrier being created: •  Customer: Ingress connection that will be  sending traffic (to be rated and routed). •  Supplier: Egress connection to which traffic  will be routed (traffic will be routed to and  charged based on supplier pricelist) •  Exchange: Bidirectional connection to which  calls are sent and from which calls are  received See Carrier Account type table,Select the required Account type
+6,Currency  (mandatory),Determines Carrier Account Pricing and standard  billing Currency,Choose Currency
+7,Company Setting,Company branch name under which you will be  dealing with Carrier.,Enter Company branch name
+8,Interconnect  Switch,"If enabled, related traffic will be considered as  transit traffic and related CDRs are not billed",to Enable  to Disable(default)

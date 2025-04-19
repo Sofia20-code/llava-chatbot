@@ -1,0 +1,6 @@
+Rf,Column Name,Description
+1,Carrier Profile Name,Determines the name by which this carrier will be known
+2,Company,Name of the company the Carrier Profile belongs to
+3,Country,Determines Country of Company location
+4,Invoice Type,"Determines the Customer Invoice type: •  Profile: For a Financial Account configured on Carrier Profile level, a unique  invoice will be generated including charges of all Carrier Accounts associated  to this Carrier Profile.  See Consolidated Billing section •  Account: For a Financial Account configured on Carrier Account level, an  individual invoice will be generated"
+5,Invoice Setting,Determines assigned Customer Invoice setting (Refer to Administration> Invoice  settings ) which defines: •  Invoice Serial Pattern and File name Pattern  •  Invoice Template that will be used to produce the invoice •  Invoice Billing Cycle and Terms •  Invoice generation Minimum Amount •  Invoice Manual or Automatic Generation •  Invoice Auto - Email - Sending

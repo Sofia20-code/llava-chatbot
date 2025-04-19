@@ -1,0 +1,146 @@
+import streamlit as st
+import pandas as pd
+import os
+import shutil
+
+# Set up the folder to store CSV files
+table_folder = 'table'
+cv_folder = 'cv_files'
+if not os.path.exists(table_folder):
+    os.makedirs(table_folder)
+if not os.path.exists(cv_folder):
+    os.makedirs(cv_folder)
+
+# Path to save the table_input.csv
+csv_file_path = os.path.join(table_folder, 'table_input.csv')
+
+# List of fields
+fields = [
+    'Billing Contact', 'Billing Email', 'Pricing Contact', 'Pricing Email', 
+    'Account Manager Contact', 'Account Manager Email', 'Support Contact', 
+    'Support Email', 'Technical Contact', 'Technical Email', 
+    'Commercial Contact', 'Commercial Email', 'Alerting SMS Phone Numbers', 
+    'Dispute Email'
+]
+
+# Add custom CSS for better design
+st.markdown("""
+    <style>
+    body {
+        background-color: #f4f4f9;
+        font-family: 'Arial', sans-serif;
+    }
+    .title {
+        font-size: 36px;
+        font-weight: bold;
+        color: #4CAF50;
+        text-align: center;
+        margin-top: 20px;
+    }
+    .section {
+        background-color: #ffffff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        margin-top: 30px;
+    }
+    .input-field {
+        width: 100%;
+        padding: 10px;
+        margin: 5px 0;
+        border-radius: 4px;
+        border: 1px solid #ddd;
+        box-sizing: border-box;
+    }
+    .submit-btn {
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        width: 100%;
+    }
+    .submit-btn:hover {
+        background-color: #45a049;
+    }
+    </style>
+""", unsafe_allow_html=True)
+
+# Function to save data into CSV file
+def save_to_csv(data):
+    df = pd.DataFrame([data])
+    
+    # Check if the CSV file exists
+    if os.path.exists(csv_file_path):
+        # If it exists, append the new data
+        df.to_csv(csv_file_path, mode='a', header=False, index=False)
+    else:
+        # If it doesn't exist, create a new one with headers
+        df.to_csv(csv_file_path, mode='w', header=True, index=False)
+
+# Function to save uploaded CV
+def save_cv(cv_file, cv_filename):
+    cv_path = os.path.join(cv_folder, cv_filename)
+    with open(cv_path, "wb") as f:
+        f.write(cv_file.getbuffer())
+    return cv_filename
+
+# Display a title
+st.markdown('<div class="title">Carrier Profile Form</div>', unsafe_allow_html=True)
+
+# Form to collect user data
+with st.form(key='user_info_form'):
+    # Collect name and email
+    name = st.text_input('Full Name', placeholder='Enter your full name')
+    email = st.text_input('Email', placeholder='Enter your email address')
+
+    # Let the user select multiple fields using multiselect
+    selected_fields = st.multiselect(
+        'Select the fields you want to configure:',
+        fields
+    )
+
+    # Collect the uploaded CV
+    cv_file = st.file_uploader('Upload your CV (PDF/Docx)', type=['pdf', 'docx'])
+
+    # Store field data in a dictionary
+    field_data = {}
+    for field in selected_fields:
+        description = st.text_input(f'{field} Description', key=f'description_{field}', placeholder=f'Enter description for {field}')
+        action = st.text_input(f'{field} Action', key=f'action_{field}', placeholder=f'Enter action for {field}')
+        
+        field_data[field] = {
+            'Description': description,
+            'Action': action
+        }
+
+    # Submit button
+    submit_button = st.form_submit_button(label='Submit', use_container_width=True)
+
+    if submit_button:
+        if all(val['Description'] and val['Action'] for val in field_data.values()) and name and email and cv_file:
+            # Save the CV
+            cv_filename = save_cv(cv_file, cv_file.name)
+
+            # Prepare the data to be saved
+            data_to_save = {
+                'Name': name,
+                'Email': email,
+                'CV Filename': cv_filename
+            }
+
+            # Add field data (description and action for selected fields)
+            for field, info in field_data.items():
+                data_to_save[f'{field} Description'] = info['Description']
+                data_to_save[f'{field} Action'] = info['Action']
+
+            # Save the data into CSV
+            save_to_csv(data_to_save)
+
+            st.success("Data has been saved successfully!")
+        else:
+            st.error("Please fill in all selected fields with description and action, and upload your CV.")
+
+    else:
+        st.info("Select the fields and fill out the form to save your data.")

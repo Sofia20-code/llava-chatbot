@@ -1,0 +1,121 @@
+Keyword,Detailed Answer
+Walk me through configuring the contacts tab when creating a carrier profile,"
+    To configure the Contacts tab of a Carrier Profile:
+    
+    1. Navigate to the Carrier Profiles page.
+    2. Click 'Edit' to access settings.
+    3. Go to the 'Contacts' tab.
+    4. Add contact details like name, email, and role (Billing, Pricing, etc.).
+    "
+How to set up the general settings for a carrier?,"
+    To set up general settings for a carrier:
+    
+    1. Access the 'General Settings' section.
+    2. Fill in carrier name, contact details, and service preferences.
+    3. Save the settings.
+    "
+What information is needed to configure a carrier profile?,"
+    Required information includes:
+    
+    1. Carrier name and contact info.
+    2. Service details.
+    3. Payment terms and certifications.
+    4. Insurance info.
+    "
+How do I assign a contact to a carrier profile?,"
+    To assign a contact:
+    
+    1. Go to the 'Contacts' tab.
+    2. Add a contact name, email, and role (Billing, Pricing, etc.).
+    3. Save the contact info to associate it with the profile.
+    "
+What fields are required under the contact tab?,"
+    Required fields:
+    
+    1. Name, email, and role.
+    2. Additional info like phone number if necessary.
+    "
+How do I update the carrier's contact details?,"
+    To update contact details:
+    
+    1. Access the 'Contacts' tab.
+    2. Select the contact to edit.
+    3. Modify the details and save the changes.
+    "
+Where do I find the carrier profile overview?,"
+    The profile overview can be accessed from the main dashboard.
+    It includes general carrier information and statistics.
+    "
+How to save and finalize a carrier profile?,"
+    To finalize:
+    
+    1. Complete all necessary fields.
+    2. Review the details for accuracy.
+    3. Click 'Save' to complete the profile.
+    "
+How to handle contact deletion in a carrier profile?,"
+    To delete a contact:
+    
+    1. Go to the 'Contacts' tab.
+    2. Select the contact and click 'Delete'.
+    3. Confirm the deletion.
+    "
+What happens if contact details are incomplete in a carrier profile?,"
+    Incomplete details can cause issues in communication.
+    Ensure all fields are filled in to avoid delays.
+    "
+How do I update the general settings for a carrier?,"
+    To update the general settings:
+    
+    1. Navigate to 'General Settings' in the carrier profile.
+    2. Modify necessary fields (name, address, contact).
+    3. Save changes after review.
+    "
+How to add new carriers to the system?,"
+    To add a new carrier:
+    
+    1. Navigate to 'Carrier Management'.
+    2. Click 'Add New Carrier' and fill in the required fields.
+    3. Save the new carrier profile.
+    "
+How do I generate a report for a carrier profile?,"
+    To generate a carrier report:
+    
+    1. Go to the 'Reports' section.
+    2. Choose the carrier profile to generate the report for.
+    3. Select report criteria and click 'Generate'.
+    "
+What should I do if a carrier profile is not showing up in the system?,"
+    If a carrier profile is not showing up:
+    
+    1. Ensure the profile was properly saved.
+    2. Check for any filter settings that may hide the profile.
+    3. If necessary, re-enter the profile or contact support.
+    "
+How to search for a carrier profile?,"
+    To search for a carrier profile:
+    
+    1. Use the search bar at the top of the Carrier Profiles page.
+    2. Enter the carrier's name, contact, or other details.
+    3. Click 'Search' to view the results.
+    "
+What are the default settings for a new carrier profile?,"
+    The default settings include:
+    
+    1. Basic carrier details like name and contact.
+    2. Initial status set to 'Inactive'.
+    3. No contacts or service information unless added manually.
+    "
+What is a carrier's payment term?,"
+    The payment term defines the period within which a carrier must be paid.
+    
+    1. Common terms include 30 days, 60 days, and 90 days.
+    2. Terms are often negotiable based on the carrier's policies.
+    "
+How do I link multiple contacts to one carrier profile?,"
+    To link multiple contacts:
+    
+    1. Go to the 'Contacts' tab in the carrier profile.
+    2. Add each contact one by one with name, role, and email.
+    3. Save to associate multiple contacts with the carrier.
+    "

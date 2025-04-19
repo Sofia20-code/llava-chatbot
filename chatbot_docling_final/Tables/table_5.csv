@@ -1,0 +1,8 @@
+Rf,Field,Description,Action
+1,Currency (mandatory),Determines Currency that will be used in billing. List includes all predefined Currencies Administration>Lookups>Currencies,Choose the Currency from all  available
+2,Customer Time Zone (mandatory),Determines Customer Time Zone that will be used  in Customer invoicing. List includes all pre-defined Time Zones  Administration>Lookups>Time Zone,Choose the Time Zone from a  drop-down list of all available
+3,Supplier Time Zone (mandatory),Determines Supplier Time Zone that will be used in  Supplier invoicing. List includes all pre-defined Time Zones  Administration>Lookups>Time Zone,Choose the Time Zone from a  drop-down list of all available
+4,VAT ID,Determines Customer VAT ID,Enter Carrier VAT ID
+5,VAT %,Customer VAT value in % reflected invoices,Specify a VAT value in %
+6,Tax1 %,Basic Customer tax value in % reflected in invoices,Specify a basic tax value in %
+7,Tax2 %,Additional Customer tax value in % reflected in  Customer invoices,Specify additional tax value in %

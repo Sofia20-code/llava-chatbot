@@ -1,0 +1,139 @@
+import os
+import random
+import pandas as pd
+import matplotlib.pyplot as plt
+import streamlit as st
+import numpy as np
+from pathlib import Path
+
+# --- Folder Setup ---
+table_folder = 'table'
+cv_folder = 'cv_files'
+icons_directory = r"C:\Users\user\Documents\pay_projects\Chatbot docling\icons"
+Path(table_folder).mkdir(parents=True, exist_ok=True)
+Path(cv_folder).mkdir(parents=True, exist_ok=True)
+Path(icons_directory).mkdir(parents=True, exist_ok=True)
+
+# --- CSV File Path ---
+csv_file_path = os.path.join(table_folder, 'table_input.csv')
+
+# --- Question Set ---
+questions = [
+    "Walk me through configuring the contacts tab when creating a carrier profile",
+    "How to set up the general settings for a carrier?",
+    "What information is needed to configure a carrier profile?",
+    "How do I assign a contact to a carrier profile?",
+    "What fields are required under the contact tab?",
+    "How do I update the carrier's contact details?",
+    "Where do I find the carrier profile overview?",
+    "How to save and finalize a carrier profile?",
+    "How to handle contact deletion in a carrier profile?",
+    "What happens if contact details are incomplete in a carrier profile?"
+]
+
+# --- Answer Map ---
+answer_map = {
+    questions[0]: "1. Go to Carrier Profiles > Edit > Contacts tab. Add contact info like name, email, role.",
+    questions[1]: "1. General Settings > Fill in carrier name, contacts, preferences > Save.",
+    questions[2]: "Carrier name, contact info, service details, payment terms, certifications.",
+    questions[3]: "Go to Contacts tab > Add name, email, role > Save.",
+    questions[4]: "Name, email, role are required. Phone is optional.",
+    questions[5]: "Go to Contacts tab > Select contact > Edit > Save.",
+    questions[6]: "Dashboard > Click carrier name to view overview.",
+    questions[7]: "Complete required fields > Review > Click Save.",
+    questions[8]: "Contacts tab > Select contact > Delete > Confirm.",
+    questions[9]: "May block communications. Always complete required fields."
+}
+
+# --- Form Fields ---
+form_inputs = {
+    questions[0]: ["Contact Name", "Contact Email", "Role (Billing/Pricing/etc)"],
+    questions[1]: ["Carrier Name", "Contact Info", "Service Preferences"],
+    questions[2]: ["Carrier Name", "Service Type", "Certifications", "Payment Terms"],
+    questions[3]: ["Contact Name", "Email", "Role"],
+    questions[4]: ["Name", "Email", "Role"],
+    questions[5]: ["Existing Contact Name", "New Email", "New Role"],
+    questions[6]: ["Carrier ID or Name"],
+    questions[7]: ["Carrier Name", "Completion Confirmation (Yes/No)"],
+    questions[8]: ["Contact to Delete", "Reason for Deletion"],
+    questions[9]: ["Which details are incomplete?", "Describe the issue"]
+}
+
+# --- Shortened Text for Icons ---
+shortened_text = {
+    "Walk me through configuring the contacts tab when creating a carrier profile": "Contacts Tab",
+    "How to set up the general settings for a carrier?": "Settings",
+    "What information is needed to configure a carrier profile?": "Carrier Info",
+    "How do I assign a contact to a carrier profile?": "Assign Contact",
+    "What fields are required under the contact tab?": "Required Fields",
+    "How do I update the carrier's contact details?": "Update Contact",
+    "Where do I find the carrier profile overview?": "Overview",
+    "How to save and finalize a carrier profile?": "Save Profile",
+    "How to handle contact deletion in a carrier profile?": "Delete Contact",
+    "What happens if contact details are incomplete in a carrier profile?": "Incomplete Info"
+}
+
+# --- Artistic Icon Creator ---
+def create_artistic_icon(file_path, text, text_color='white'):
+    fig, ax = plt.subplots(figsize=(4, 4))  # Bigger icon
+    shape = random.choice(['circle', 'square', 'diamond', 'sphere'])
+    color1, color2 = generate_random_color(), generate_random_color()
+
+    ax.set_facecolor(color1)
+
+    if shape == 'circle':
+        ax.add_patch(plt.Circle((0.5, 0.5), 0.4, color=color2))
+    elif shape == 'square':
+        ax.add_patch(plt.Rectangle((0, 0), 1, 1, color=color2))
+    elif shape == 'diamond':
+        ax.add_patch(plt.Polygon([(0.5, 0), (1, 0.5), (0.5, 1), (0, 0.5)], color=color2))
+    elif shape == 'sphere':
+        ax.add_patch(plt.Circle((0.5, 0.5), 0.4, color=color2, alpha=0.6))
+
+    ax.text(0.5, 0.5, text, fontsize=18, ha='center', va='center', color=text_color, fontweight='bold')
+    ax.axis('off')
+    plt.savefig(file_path, bbox_inches='tight', pad_inches=0.2, transparent=True)
+    plt.close()
+
+def generate_random_color():
+    return "#" + ''.join(random.choices('0123456789ABCDEF', k=6))
+
+# --- Add Data to CSV ---
+def add_data_to_csv(question, form_data):
+    df = pd.read_csv(csv_file_path) if os.path.exists(csv_file_path) else pd.DataFrame(columns=["Question", "FormField", "Response"])
+    new_rows = pd.DataFrame([{"Question": question, "FormField": k, "Response": v} for k, v in form_data.items()])
+    df = pd.concat([df, new_rows], ignore_index=True)
+    df.to_csv(csv_file_path, index=False)
+
+# --- Streamlit UI ---
+st.set_page_config(page_title="Carrier Profile Assistant", layout="centered")
+st.title("📋 Carrier Profile Bot Assistant")
+
+# --- Select Question ---
+selected_question = st.selectbox("Select a help question", questions)
+
+# --- Icon Generation ---
+icon_text = shortened_text[selected_question]
+icon_file = os.path.join(icons_directory, f"{icon_text}_icon.png")
+create_artistic_icon(icon_file, icon_text)
+st.image(icon_file, width=200)
+
+# --- Show Answer ---
+st.markdown("### 💡 Answer")
+st.info(answer_map[selected_question])
+
+# --- Dynamic Form ---
+st.markdown("### 📝 Fill Required Fields")
+form_data = {}
+with st.form(key="input_form"):
+    for field in form_inputs[selected_question]:
+        form_data[field] = st.text_input(field)
+    submitted = st.form_submit_button("Submit to Table")
+
+# --- Save Data ---
+if submitted:
+    if all(v.strip() != "" for v in form_data.values()):
+        add_data_to_csv(selected_question, form_data)
+        st.success(" Data saved to `table_input.csv`!")
+    else:
+        st.warning("Please complete all fields before submitting.")

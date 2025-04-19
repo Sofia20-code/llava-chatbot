@@ -1,0 +1,4 @@
+Rf,Field,Description,Action
+1,Name (mandatory),Determines Escalation Level Name for  tickets escalation with carrier,Configure the Escalation Level Name for  tickets escalation with carrier
+2,Phone Numbers,Determines corresponding Phone  number (s),"Add corresponding phone number, then  press on the  button"
+3,Emails (mandatory),Determines email(s) for tickets  escalation with carrier,Add required email for tickets escalation  with carrier. Refer to Adding Email Steps .
